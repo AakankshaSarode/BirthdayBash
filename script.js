@@ -22,7 +22,8 @@ const shayariMessages = shayariPopup.querySelectorAll(".message");
 
 // Typewriter
 const typewriter = document.getElementById("typewriter");
-const birthdayMessage = "Wishing you a day filled with love, laughter & cake 🎂💖";
+const birthdayMessage =
+  "Wishing you a day filled with love, laughter & cake 🎂💖";
 
 let index = 0;
 let pickupIndex = 0;
@@ -35,7 +36,7 @@ function typeEffect() {
   if (index < birthdayMessage.length) {
     typewriter.textContent += birthdayMessage.charAt(index);
     index++;
-    setTimeout(typeEffect, 80);
+    setTimeout(typeEffect, 40);
   }
 }
 
@@ -45,10 +46,10 @@ function typeEffect() {
 window.addEventListener("load", () => {
   birthdayPopup.classList.remove("hidden");
   confetti({ particleCount: 300, spread: 120, origin: { y: 0.6 } });
-  setTimeout(typeEffect, 500);
+  setTimeout(typeEffect, 200);
 
   // Auto flip after 3 seconds
-  setTimeout(() => birthdayFlipCard.classList.add("open"), 3000);
+  setTimeout(() => birthdayFlipCard.classList.add("open"), 4000);
 });
 
 // =========================
@@ -67,7 +68,7 @@ const pickupLines = [
   "😂 Are you a keyboard? Because you’re just my TYPE 💻💖",
   "🧁 Calories don’t count today… because YOU are the sweetest thing here 😌",
   "🎂 Another year older, another year CUTER 😎✨",
-  "💖 You leveled up today!"
+  "💖 You leveled up today!",
 ];
 
 // Open pickup line card
@@ -85,7 +86,7 @@ surpriseFlipCard.addEventListener("click", () => {
     pickupIndex = (pickupIndex + 1) % pickupLines.length;
     surpriseLine.textContent = pickupLines[pickupIndex];
     surpriseFlipCard.classList.toggle("open");
-  }, 500); // match flip duration
+  }, 1000); // match flip duration
 });
 
 // Close pickup line card
@@ -101,13 +102,20 @@ const shayaris = [
   "तुम्हारी मुस्कान मेरी ज़िन्दगी की सबसे खूबसूरत कविता है 💕",
   "हर लम्हा तुम्हारे साथ, जैसे खुशियों की बारिश 🌸",
   "तुम हो मेरे ख्वाबों की शायरी, और मैं उसका दीवाना 😍",
-  "तेरे होने से मेरी दुनिया रंगीन हो गई है 🎨💖"
+  "तेरे होने से मेरी दुनिया रंगीन हो गई है 🎨💖",
 ];
 shayariBtn.addEventListener("click", () => {
   shayariPopup.classList.remove("hidden");
   shayariFlipCard.classList.add("open");
   shayariText.textContent = shayaris[shayariIndex];
-  confetti({ particleCount: 250, spread: 100, origin: { y: 0.6 } });
+  // ❤️ HEART BOMB EFFECT
+  confetti({
+    particleCount: 300,
+    spread: 120,
+    origin: { y: 0.6 },
+    shapes: ["heart"],
+    colors: ["#ff4d6d", "#ff758f", "#ffb3c6"],
+  });
 });
 
 shayariFlipCard.addEventListener("click", () => {
@@ -116,7 +124,7 @@ shayariFlipCard.addEventListener("click", () => {
     shayariIndex = (shayariIndex + 1) % shayaris.length;
     shayariText.textContent = shayaris[shayariIndex];
     shayariFlipCard.classList.toggle("open");
-  }, 500); // match flip animation duration
+  }, 1000); // match flip animation duration
 });
 closeShayari.addEventListener("click", () => {
   shayariPopup.classList.add("hidden");
