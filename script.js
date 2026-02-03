@@ -130,3 +130,29 @@ closeShayari.addEventListener("click", () => {
   shayariPopup.classList.add("hidden");
   shayariIndex = 0;
 });
+
+
+
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "floating-heart";
+  heart.textContent = "❤";
+  heart.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 10000);
+}, 1200);
+
+function animateText(el, text) {
+  el.innerHTML = "";
+  text.split(" ").forEach((word, i) => {
+    const span = document.createElement("span");
+    span.textContent = word + " ";
+    span.className = "word";
+    span.style.animationDelay = `${i * 0.15}s`;
+    el.appendChild(span);
+  });
+}
+
+
+
