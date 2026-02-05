@@ -13,126 +13,138 @@ const closeSurprise = document.getElementById("closeSurprise");
 const surpriseFlipCard = document.querySelector("#surprisePopup .flip-card");
 const surpriseLine = document.getElementById("surpriseLine");
 
-// Shayari/Poems Card
+// Love Coupon
 const shayariBtn = document.getElementById("shayariBtn");
-const shayariPopup = document.getElementById("shayariPopup");
-const closeShayari = document.getElementById("closeShayari");
-const shayariFlipCard = document.querySelector("#shayariPopup .flip-card");
-const shayariMessages = shayariPopup.querySelectorAll(".message");
+const couponPopup = document.getElementById("couponPopup");
+const closeCoupon = document.getElementById("closeCoupon");
 
 // Typewriter
 const typewriter = document.getElementById("typewriter");
+
+
+// =========================
+// DATA
+// =========================
 const birthdayMessage =
   "Wishing you a day filled with love, laughter & cake 🎂💖";
 
-let index = 0;
+const pickupLines = [
+"waise aapko bata doon mere khayali pulao mein chawal aap hi ho🎀😚", 
+"🤭Oops,looks like you're trapped with me forever😘",
+"Hotel without el is YOU🤭",
+"if you were a worm I'd the earliest bird😁",
+ "Here is fan🪭,cause you're way too hot 🫠",
+ "💕I love the version of me that never stop loving you 😚",
+  "💕 You must be a magician because whenever you smile, the whole world disappears ✨",
+  "😂 Are you a keyboard? Because you’re just my TYPE 💻💖",
+  "🧁 Calories don’t count today… because YOU are the sweetest 😌",
+  "🎂 Another year older, another year CUTER 😎✨",
+  "💖 You leveled up today!"
+];
+
+let typeIndex = 0;
 let pickupIndex = 0;
-let shayariIndex = 0;
+
 
 // =========================
 // TYPEWRITER EFFECT
 // =========================
 function typeEffect() {
-  if (index < birthdayMessage.length) {
-    typewriter.textContent += birthdayMessage.charAt(index);
-    index++;
+  if (typeIndex < birthdayMessage.length) {
+    typewriter.textContent += birthdayMessage.charAt(typeIndex);
+    typeIndex++;
     setTimeout(typeEffect, 40);
   }
 }
+
 
 // =========================
 // SHOW BIRTHDAY CARD ON LOAD
 // =========================
 window.addEventListener("load", () => {
   birthdayPopup.classList.remove("hidden");
-  confetti({ particleCount: 300, spread: 120, origin: { y: 0.6 } });
+
+  confetti({
+    particleCount: 300,
+    spread: 120,
+    origin: { y: 0.6 }
+  });
+
   setTimeout(typeEffect, 200);
 
-  // Auto flip after 3 seconds
-  setTimeout(() => birthdayFlipCard.classList.add("open"), 4000);
+  // Auto flip after 4s
+  setTimeout(() => {
+    birthdayFlipCard.classList.add("open");
+  }, 4000);
 });
+
 
 // =========================
 // CLOSE BIRTHDAY CARD
 // =========================
 closeBirthday.addEventListener("click", () => {
   birthdayPopup.classList.add("hidden");
-  container.classList.remove("hidden"); // show main buttons
+  container.classList.remove("hidden");
 });
 
-// =========================
-// PICKUP LINES CARD
-// =========================
-const pickupLines = [
-  "💕 You must be a magician because whenever you smile, the whole world disappears ✨",
-  "😂 Are you a keyboard? Because you’re just my TYPE 💻💖",
-  "🧁 Calories don’t count today… because YOU are the sweetest thing here 😌",
-  "🎂 Another year older, another year CUTER 😎✨",
-  "💖 You leveled up today!",
-];
 
-// Open pickup line card
+// =========================
+// PICKUP LINE CARD
+// =========================
 surpriseBtn.addEventListener("click", () => {
   surprisePopup.classList.remove("hidden");
+  pickupIndex = 0;
+
   surpriseFlipCard.classList.add("open");
   surpriseLine.textContent = pickupLines[pickupIndex];
-  confetti({ particleCount: 250, spread: 100, origin: { y: 0.6 } });
+
+  confetti({
+    particleCount: 200,
+    spread: 100,
+    origin: { y: 0.6 }
+  });
 });
 
-// Flip to next pickup line
+// Flip → Next pickup line
 surpriseFlipCard.addEventListener("click", () => {
   surpriseFlipCard.classList.toggle("open");
+
   setTimeout(() => {
     pickupIndex = (pickupIndex + 1) % pickupLines.length;
     surpriseLine.textContent = pickupLines[pickupIndex];
     surpriseFlipCard.classList.toggle("open");
-  }, 1000); // match flip duration
+  }, 1000);
 });
 
-// Close pickup line card
-closeSurprise.addEventListener("click", () => {
+closeSurprise.addEventListener("click", (e) => {
+  e.stopPropagation();
   surprisePopup.classList.add("hidden");
-  pickupIndex = 0;
 });
 
+
 // =========================
-// SHAYARI/POEMS CARD
+// LOVE COUPON
 // =========================
-const shayaris = [
-  "तुम्हारी मुस्कान मेरी ज़िन्दगी की सबसे खूबसूरत कविता है 💕",
-  "हर लम्हा तुम्हारे साथ, जैसे खुशियों की बारिश 🌸",
-  "तुम हो मेरे ख्वाबों की शायरी, और मैं उसका दीवाना 😍",
-  "तेरे होने से मेरी दुनिया रंगीन हो गई है 🎨💖",
-];
 shayariBtn.addEventListener("click", () => {
-  shayariPopup.classList.remove("hidden");
-  shayariFlipCard.classList.add("open");
-  shayariText.textContent = shayaris[shayariIndex];
-  // ❤️ HEART BOMB EFFECT
+  couponPopup.classList.remove("hidden");
+
   confetti({
     particleCount: 300,
     spread: 120,
     origin: { y: 0.6 },
     shapes: ["heart"],
-    colors: ["#ff4d6d", "#ff758f", "#ffb3c6"],
+    colors: ["#ff4d6d", "#ff758f", "#ffb3c6"]
   });
 });
 
-shayariFlipCard.addEventListener("click", () => {
-  shayariFlipCard.classList.toggle("open");
-  setTimeout(() => {
-    shayariIndex = (shayariIndex + 1) % shayaris.length;
-    shayariText.textContent = shayaris[shayariIndex];
-    shayariFlipCard.classList.toggle("open");
-  }, 1000); // match flip animation duration
-});
-closeShayari.addEventListener("click", () => {
-  shayariPopup.classList.add("hidden");
-  shayariIndex = 0;
+closeCoupon.addEventListener("click", () => {
+  couponPopup.classList.add("hidden");
 });
 
 
-
+// =========================
+// FLOATING HEARTS BACKGROUND
+// =========================
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "floating-heart";
@@ -142,17 +154,3 @@ setInterval(() => {
 
   setTimeout(() => heart.remove(), 10000);
 }, 1200);
-
-function animateText(el, text) {
-  el.innerHTML = "";
-  text.split(" ").forEach((word, i) => {
-    const span = document.createElement("span");
-    span.textContent = word + " ";
-    span.className = "word";
-    span.style.animationDelay = `${i * 0.15}s`;
-    el.appendChild(span);
-  });
-}
-
-
-
